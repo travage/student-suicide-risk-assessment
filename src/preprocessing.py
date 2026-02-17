@@ -1,7 +1,5 @@
 import pandas as pd
 
-df = pd.read_csv("../data/raw/Final_SP_dataSet.csv", keep_default_na=False)
-
 def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     # Convert column names to lowercase and snake case
     df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')
@@ -71,8 +69,5 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     nominal_columns = ['gender', 'relationship_condition', 'family_problem', 'mental_support']
     # One-hot encoding of nominal columns; preserving all dummy columns to preserve interpretability
     df = pd.get_dummies(df, columns=nominal_columns, drop_first=False)
-
-    # TODO: Export cleaned data to a new CSV file when ready
-    # df.to_csv('data/processed/cleaned_data.csv', index=False)
 
     return df
