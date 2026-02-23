@@ -24,8 +24,8 @@ def predict_from_input(input_data: dict) -> dict:
     df = df.reindex(columns=FEATURE_COLUMNS, fill_value=0)
 
     # Convert all values to numeric
-    # Nan values will be converted to 0
-    df = df.apply(pd.to_numeric, errors='coerce').fillna(0)
+    # NaN values will be converted to 0
+    df = df.apply(pd.to_numeric, errors='coerce').fillna(-1)
 
     pred_class = int(MODEL.predict(df)[0])
     pred_label = CLASS_TO_LABEL.get(pred_class, 'Unknown Risk Level')
@@ -41,15 +41,14 @@ def predict_from_input(input_data: dict) -> dict:
 
     return result
 
-def encode_nominal(prefix: str, value: str, feature_columns: list[str]) -> dict:
+def encode_nominal(prefix: str, value: str) -> dict:
     """
     Encodes a nominal feature into a one-hot encoded dictionary.
     :param prefix: The prefix for the feature (e.g. mental_support)
     :param value: The value of the nominal feature to encode (e.g. Loneliness)
-    :param feature_columns: List of all feature columns used in training to detect the categories
     :return: A dictionary with one-hot encoded values for the nominal feature
     """
-    categories = detect_categories(prefix, feature_columns)
+    categories = detect_categories(prefix, FEATURE_COLUMNS)
     encoded = {f"{prefix}_{cat}": 1 if cat == value else 0 for cat in categories}
     return encoded
 
@@ -68,6 +67,7 @@ def detect_categories(feature_name: str, feature_columns: list[str]) -> list[str
             categories.append(col[len(prefix):])
     return categories
 
-# if __name__ == "__main__":
-#     example = {"age": 20, "stress_level": 2, "mental_support_Loneliness": 1}
-#     print(predict_from_input(example))
+# Test
+if __name__ == "__main__":
+    example = {"age": 20, "stress_level": 2, "mental_support_Loneliness": 1}
+    print(predict_from_input(example))

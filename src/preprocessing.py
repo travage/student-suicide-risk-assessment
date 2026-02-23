@@ -69,5 +69,7 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     nominal_columns = ['gender', 'relationship_condition', 'family_problem', 'mental_support']
     # One-hot encoding of nominal columns; preserving all dummy columns to preserve interpretability
     df = pd.get_dummies(df, columns=nominal_columns, drop_first=False)
+    # Some categories are multiword and therefore introduce spaces in column names
+    df.columns = df.columns.str.replace(' ', '_')
 
     return df
