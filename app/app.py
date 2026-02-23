@@ -6,6 +6,8 @@ import os
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 # Add project root to Python path
 sys.path.append(PROJECT_ROOT)
+# Directory where charts are
+VISUALS_DIR = os.path.join(PROJECT_ROOT, "visuals")
 
 from src.predict import predict_from_input, encode_nominal
 
@@ -117,6 +119,17 @@ if submit_button:
 
         # Display visualizations
         st.subheader('Model Insights and Data Overview')
-        st.image('suicide_attempt_distribution.png', caption='Distribution of Suicide Attempt Categories')
-        st.image('top_10_feature_importances.png', caption='Top 10 Feature Importances (Random Forest)')
-        st.image('distribution_by_stress_level.png', caption='Distribution of Suicide Attempt Categories by Stress Level')
+        st.image(
+            os.path.join(VISUALS_DIR, "suicide_attempt_distribution.png"),
+            caption="Distribution of Suicide Attempt Categories"
+        )
+
+        st.image(
+            os.path.join(VISUALS_DIR, "top_10_feature_importances.png"),
+            caption="Top 10 Feature Importances (Random Forest)"
+        )
+
+        st.image(
+            os.path.join(VISUALS_DIR, "distribution_by_stress_level.png"),
+            caption="Distribution of Suicide Attempt Categories by Stress Level"
+        )
