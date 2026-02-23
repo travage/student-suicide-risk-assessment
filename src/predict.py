@@ -1,8 +1,17 @@
 import joblib
 import pandas as pd
+from pathlib import Path
 
-MODEL = joblib.load('../models/random_forest_model.pkl')
-FEATURE_COLUMNS = joblib.load('../models/feature_columns.pkl')
+# Resolve project root based on this file's location
+THIS_DIR = Path(__file__).resolve().parent      # .../student-suicide-risk-assessment/src
+PROJECT_ROOT = THIS_DIR.parent                  # .../student-suicide-risk-assessment
+MODELS_DIR = PROJECT_ROOT / "models"
+
+MODEL_PATH = MODELS_DIR / "random_forest_model.pkl"
+FEATURE_COLUMNS_PATH = MODELS_DIR / "feature_columns.pkl"
+
+MODEL = joblib.load(MODEL_PATH)
+FEATURE_COLUMNS = joblib.load(FEATURE_COLUMNS_PATH)
 
 CLASS_TO_LABEL = {
     0: 'Low Risk',
