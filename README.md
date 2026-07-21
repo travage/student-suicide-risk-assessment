@@ -2,6 +2,7 @@
 A machine learning–based web application that assesses suicide risk among students using well-being survey data and a Random Forest classifier.
 
 Streamlit link: https://studentriskassess.streamlit.app/
+
 Kaggle dataset: https://www.kaggle.com/datasets/samiulalom01/early-suicide-prediction
 
 # IMPORTANT NOTE
